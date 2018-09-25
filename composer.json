@@ -14,6 +14,10 @@
     },
     "require": {
         "symfony/console": "^4.1",
-        "phpunit/phpunit": "^7.3"
+        "phpunit/phpunit": "^7.3",
+        "symfony/event-dispatcher": "^4.1",
+        "phpunit/php-invoker": "^2.0",
+        "symfony/process": "^4.1",
+        "symfony/lock": "^4.1"
     }
 }
