@@ -4,13 +4,13 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 
-class DummyTest extends TestCase
+class TagParserTest extends TestCase
 {
 
     /**
      * @test
      */
-    public function dummyTest()
+    public function parseTextTest()
     {
         $this->assertTrue(true);
     }
