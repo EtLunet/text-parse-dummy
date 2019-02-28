@@ -2,10 +2,8 @@
 
 namespace Commands;
 
-use Entities\TodoListEntry;
-use Parsers\PriorityParser;
-use Parsers\TagParser;
-use Parsers\TimeParser;
+
+use Parsers\TextParser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,17 +20,7 @@ class InputParserCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output) {
         $input = $input->getArgument('input_text');
 
-        $todoListEntry = new TodoListEntry(explode(" ", $input));
-
-        $tagParser = new TagParser();
-        $tagParser->parseInput($todoListEntry);
-
-        $priorityParser = new PriorityParser();
-        $priorityParser->parseInput($todoListEntry);
-
-        $timeParser = new TimeParser();
-        $timeParser->parseInput($todoListEntry);
-
+        $todoListEntry = TextParser::parseInput($input);
         var_dump($todoListEntry);
     }
 }

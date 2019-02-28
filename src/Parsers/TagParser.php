@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hillburn
- * Date: 2/28/19
- * Time: 10:24 AM
- */
 
 namespace Parsers;
 
@@ -13,21 +7,20 @@ use Entities\TodoListEntry;
 
 class TagParser {
 
+    public static function parseInput(TodoListEntry $todoListEntry): TodoListEntry {
+        $tokenizedText = $todoListEntry->getTokenizedText();
 
-    /**
-     * @param TodoListEntry $todoListEntry
-     */
-    public function parseInput($todoListEntry) {
-        $inputSplit = $todoListEntry->getPlainText();
-
-        $filteredInputSplit = $inputSplit;
-        foreach ($inputSplit as $element) {
-            if (substr($element, 0, 1) === '#') {
-                $todoListEntry->addTag($element);
-                $filteredInputSplit = array_diff($filteredInputSplit, array($element));
+        // filter any token that starts with '#'
+        $tags = array_filter(
+            $tokenizedText,
+            function ($token) {
+                return substr($token, 0, 1) === '#';
             }
-        }
+        );
 
-        $todoListEntry->setPlainText($filteredInputSplit);
+        // remove found tags from tokens
+        $tokenizedText = array_diff($tokenizedText, $tags);
+
+        return new TodoListEntry($tokenizedText, $tags, $todoListEntry->getPriority(), $todoListEntry->getDate());
     }
 }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hillburn
- * Date: 2/28/19
- * Time: 10:21 AM
- */
 
 namespace Entities;
 
@@ -16,77 +10,47 @@ class TodoListEntry {
     /**
      * @var array
      */
-    private $plainText;
+    private $tokenizedText;
 
     /**
      * @var array
      */
-    private $tags = [];
+    private $tags;
 
     /**
      * @var int
      */
-    private $priority = 0;
+    private $priority;
 
     /**
      * @var DateTime
      */
     private $date;
 
-    /**
-     * TodoListEntry constructor.
-     * @param array $plainText
-     */
-    public function __construct($plainText) {
-        $this->plainText = $plainText;
+    public function __construct(array $tokenizedText, array $tags = [], int $priority = 0, DateTime $date = null) {
+        $this->tokenizedText = $tokenizedText;
+        $this->tags = $tags;
+        $this->priority = $priority;
+        $this->date = $date;
     }
 
-    /**
-     * @return array
-     */
-    public function getPlainText() {
-        return $this->plainText;
+    public function getTokenizedText(): array {
+        return $this->tokenizedText;
     }
 
-    /**
-     * @param array $plainText
-     */
-    public function setPlainText($plainText) {
-        $this->plainText = $plainText;
+    public function getPlainTextMessage(): string {
+        return implode(" ", $this->tokenizedText);
     }
 
-    /**
-     * @param string $tag
-     */
-    public function addTag($tag) {
-        array_push($this->tags, $tag);
+    public function getTags(): array {
+        return $this->tags;
     }
 
-    /**
-     * @return int
-     */
-    public function getPriority() {
+    public function getPriority(): int {
         return $this->priority;
     }
 
-    /**
-     * @param int $priority
-     */
-    public function setPriority($priority) {
-        $this->priority = $priority;
-    }
-
-    /**
-     * @return DateTime
-     */
     public function getDate() {
         return $this->date;
-    }
-
-    /**
-     * @param DateTime $date
-     */
-    public function setDate($date) {
-        $this->date = $date;
     }
 }
